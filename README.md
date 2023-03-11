@@ -13,7 +13,7 @@ pip install akashic_records
 
 To use the `akashic_records` library, you need to import the function you want to generate. The library generates the function on the fly based on the name you import. For example, to generate a quicksort function, you can import the quick_sort function like this:
 
-Since this library depends on `[openai](https://github.com/openai/openai-python)`, you need to set your API key on start.
+Since this library depends on [`openai`](https://github.com/openai/openai-python), you need to set your API key on start.
 ```python
 import openai
 openai.api_key = '<YOUR_KEY>'
