@@ -77,8 +77,6 @@ class Loader(importlib.abc.Loader):
 
                 parameters = [
                     inspect.Parameter(
-                        # FIXME: When a constant is passed to a function, this name generation process fails
-                        #          Workaround is to use keyword args
                         frame_info.get_source(arg)
                         if frame_info.get_source(arg).isidentifier()
                         else "p%d" % i,
