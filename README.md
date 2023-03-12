@@ -1,7 +1,8 @@
 # akashic_records
 
 `akashic_records` is a Python package that dynamically generates functions using OpenAI code completion based on what is imported and how it is used.
-Installation
+
+## Installation
 
 To install the akashic_records package, you can use pip:
 
