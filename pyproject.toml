@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "akashic_records"
-version = "0.2.2"
+version = "0.3.0"
 description = "Generate and execute python code via OpenAI code completion"
 authors = ["David Buckley <david@davidbuckley.ca>"]
 readme = "README.md"

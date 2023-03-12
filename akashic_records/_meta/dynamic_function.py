@@ -33,9 +33,15 @@ class CodeBuilder:
         docstring: Optional[str],
     ) -> list[Callable]:
         arg_spec = [str(param) for param in signature.parameters.values()]
-        ret = signature.return_annotation != inspect.Signature.empty
 
-        def_line = f"def {name}({', '.join(arg_spec)}){' -> '+signature.return_annotation if ret else ''}:"
+        if isinstance(signature.return_annotation, str):
+            ret = signature.return_annotation
+        elif isinstance(signature.return_annotation, type):
+            ret = signature.return_annotation.__name__
+        else:
+            ret = None
+
+        def_line = f"def {name}({', '.join(arg_spec)}){' -> '+ret if ret else ''}:"
         prompt_text = def_line
         if docstring:
             prompt_text += '\n    """'

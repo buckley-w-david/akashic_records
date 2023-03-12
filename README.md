@@ -77,6 +77,32 @@ def merge_sort(unsorted_list: list) -> list:
 
 If you would like to include a docstring but not a return type, only use a string for the type annotation instead of using `typing.Annotated`.
 
+## Decorator
+
+If you don't like the somewhat magical mechanisms by which the above functionality works (extracting type hints and argument variable names), the packge also supplies a decorator with the same functionality.
+
+```python
+from akashic_records import generate
+
+@generate(n=1, temperature=0.1, max_tokens=256)
+def merge_sort(unsorted_list: list) -> list:
+    """
+    Sorts the input list using the mergesort algorithm.
+
+    Parameters:
+    -----------
+    unsorted_list : list
+        The input list to be sorted.
+
+    Returns:
+    --------
+    list
+        The sorted list.
+    """
+
+print(merge_sort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]))  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]
+```
+
 ### How does the parameter name/type hint thing work?
 
 The very neat [sorcery](https://github.com/alexmojaki/sorcery) package by [Alex Hall](https://github.com/alexmojaki).
