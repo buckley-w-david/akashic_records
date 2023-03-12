@@ -8,15 +8,22 @@ from akashic_records._meta import injector as _injector
 from akashic_records._meta import dynamic_function as _dynamic_function
 import sys as _sys
 
-from akashic_records._meta.errors import ExhaustedAttemtpsError as _ExhaustedAttemtpsError
+from akashic_records._meta.errors import (
+    ExhaustedAttemtpsError as _ExhaustedAttemtpsError,
+)
 from akashic_records._meta.errors import MultiError as _MultiError
 
 config = _injector.Loader()
 _finder = _injector.Finder(config)
 _sys.meta_path.append(_finder)
 
-def generate(n: _Optional[int] = None, temperature: _Optional[float] = None, max_tokens: _Optional[int] = None):
-    '''
+
+def generate(
+    n: _Optional[int] = None,
+    temperature: _Optional[float] = None,
+    max_tokens: _Optional[int] = None,
+):
+    """
     Decorator for dynamic function generation
 
     Parameters:
@@ -24,7 +31,7 @@ def generate(n: _Optional[int] = None, temperature: _Optional[float] = None, max
     n : int, optional
         The number of completions to generate at once
     temperature : float, optional
-        The temperature of the completion generation 
+        The temperature of the completion generation
     max_tokens : int, optional
         The maximum tokens that a completion can have
 
@@ -32,7 +39,8 @@ def generate(n: _Optional[int] = None, temperature: _Optional[float] = None, max
     --------
     Callable
         A configured decorator to dynamically generate functions
-    '''
+    """
+
     def outer(f):
         '''
         Decorator for dynamic function generation
@@ -80,9 +88,7 @@ def generate(n: _Optional[int] = None, temperature: _Optional[float] = None, max
                 # Intentionally brittle check to allow for unlimited attempts using any negative number
                 while attempt != 0:
                     attempt -= 1
-                    for func in builder.build_function(
-                        f.__name__, sig, docstring
-                    ):
+                    for func in builder.build_function(f.__name__, sig, docstring):
                         try:
                             result = func(*args, **kwargs)
                             dyn = func
@@ -97,5 +103,7 @@ def generate(n: _Optional[int] = None, temperature: _Optional[float] = None, max
                 ) from errors
             else:
                 return dyn(*args, **kwargs)
+
         return inner
+
     return outer
