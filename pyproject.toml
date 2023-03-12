@@ -1,9 +1,12 @@
 [tool.poetry]
 name = "akashic_records"
-version = "0.2.1"
-description = ""
+version = "0.2.2"
+description = "Generate and execute python code via OpenAI code completion"
 authors = ["David Buckley <david@davidbuckley.ca>"]
 readme = "README.md"
+license = "MIT"
+repository = "https://github.com/buckley-w-david/akashic_records"
+documentation = "https://github.com/buckley-w-david/akashic_records#usage"
 
 [tool.poetry.dependencies]
 python = "^3.10"
