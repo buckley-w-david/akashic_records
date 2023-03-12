@@ -32,7 +32,7 @@ def quick_sort(arr: list):
 
 Note that the parameter name matches the name of the argument that was passed in. If a constant is passed in instead of an identifier, generic names such as `p0` and `p1` will be used. To have a useful name with a constant argument, use keyword arguments.
 
-## Return type and docstrings
+### Return type and docstrings
 
 This package (ab)uses type hints to give more information to the completion process.
 
@@ -77,7 +77,7 @@ def merge_sort(unsorted_list: list) -> list:
 
 If you would like to include a docstring but not a return type, only use a string for the type annotation instead of using `typing.Annotated`.
 
-## Decorator
+### Decorator
 
 If you don't like the somewhat magical mechanisms by which the above functionality works (extracting type hints and argument variable names), the packge also supplies a decorator with the same functionality.
 
@@ -103,11 +103,7 @@ def merge_sort(unsorted_list: list) -> list:
 print(merge_sort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]))  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]
 ```
 
-### How does the parameter name/type hint thing work?
-
-The very neat [sorcery](https://github.com/alexmojaki/sorcery) package by [Alex Hall](https://github.com/alexmojaki).
-
-## Options
+### Options
 
 The OpenaAI completaions endpoint has many options. Some of these are available for tweaking.
 
@@ -131,6 +127,11 @@ config.type_hint = True # Set to False to disable all type hints in prompts
 # The `attempts` value controls how many times it will try.
 config.attempts = 5 # Set to -1 for unlimited tries.
 ```
+
+### How does the parameter name/type hint thing work?
+
+The very neat [sorcery](https://github.com/alexmojaki/sorcery) package by [Alex Hall](https://github.com/alexmojaki).
+
 
 ## What's with the name?
 
