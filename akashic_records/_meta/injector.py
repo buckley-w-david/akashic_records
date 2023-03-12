@@ -1,8 +1,10 @@
+import ast
 import functools
 import importlib.abc
 import importlib.machinery
 
 import inspect
+from typing import Annotated
 
 from sorcery import spell
 
@@ -45,18 +47,39 @@ class Loader(importlib.abc.Loader):
                     break
 
                 docstring_content = None
-                if statement and hasattr(statement, "annotation"):
-                    docstring_content = inspect.cleandoc(statement.annotation.value)
+                return_type = inspect.Signature.empty
+                if (
+                    isinstance(statement, ast.AnnAssign)
+                    and isinstance(statement.annotation, ast.Constant)
+                    and isinstance(statement.annotation.value, str)
+                ):
+                    annotation = statement.annotation.value
+                    docstring_content = inspect.cleandoc(annotation)
+                elif (
+                    isinstance(statement, ast.AnnAssign)
+                    and isinstance(statement.annotation, ast.Subscript)
+                    and statement.annotation.value.id == "Annotated"
+                ):
+                    if self.type_hint:
+                        return_type = statement.annotation.slice.elts[0].id  # type: ignore
+                    for annotation in statement.annotation.slice.elts[1:]:  # type: ignore
+                        if isinstance(annotation, ast.Constant) and isinstance(
+                            annotation.value, str
+                        ):
+                            docstring_content = inspect.cleandoc(annotation.value)
+                            break
 
                 parameters = [
                     inspect.Parameter(
-                        frame_info.get_source(arg),
+                        # FIXME: When a constant is passed to a function, this name generation process fails
+                        #          Workaround is to use keyword args
+                        frame_info.get_source(arg) if frame_info.get_source(arg).isidentifier() else "p%d" % i,
                         annotation=type(value)
                         if self.type_hint
                         else inspect.Parameter.empty,
                         kind=inspect.Parameter.POSITIONAL_OR_KEYWORD,
                     )
-                    for arg, value in zip(frame_info.call.args, args)
+                    for i, (arg, value) in enumerate(zip(frame_info.call.args, args))
                 ]
                 parameters.extend(
                     [
@@ -70,7 +93,7 @@ class Loader(importlib.abc.Loader):
                         for name, value in kwargs.items()
                     ]
                 )
-                sig = inspect.Signature(parameters)
+                sig = inspect.Signature(parameters, return_annotation=return_type)
                 attempt = self.attempts
                 errors = MultiError()
                 # Intentionally brittle check to allow for unlimited attempts using any negative number
