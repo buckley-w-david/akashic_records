@@ -24,7 +24,7 @@ result = quick_sort(arr)
 print(result)  # Output: [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]
 ```
 
-The package will end up making requests to the OpenAI completations endpoint with the `code-davinci-002` model.
+The package will end up making requests to the OpenAI completions endpoint with the `code-davinci-002` model.
 
 The above code will end up generating this prompt:
 ```
@@ -80,7 +80,7 @@ If you would like to include a docstring but not a return type, only use a strin
 
 ### Decorator
 
-If you don't like the somewhat magical mechanisms by which the above functionality works (extracting type hints and argument variable names), the packge also supplies a decorator with the same functionality.
+If you don't like the somewhat magical mechanisms by which the above functionality works (extracting type hints and argument variable names), the package also supplies a decorator with the same functionality.
 
 ```python
 from akashic_records import generate
@@ -106,7 +106,7 @@ print(merge_sort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]))  # Output: [1, 1, 2, 3, 3, 
 
 ### Options
 
-The OpenaAI completaions endpoint has many options. Some of these are available for tweaking.
+The OpenaAI completions endpoint has many options. Some of these are available for tweaking.
 
 ```python
 from akashic_records import config
