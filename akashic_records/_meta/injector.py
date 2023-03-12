@@ -57,6 +57,12 @@ class Loader(importlib.abc.Loader):
                     docstring_content = inspect.cleandoc(annotation)
                 elif (
                     isinstance(statement, ast.AnnAssign)
+                    and isinstance(statement.annotation, ast.Name)
+                    and self.type_hint
+                ):
+                    return_type = statement.annotation.id
+                elif (
+                    isinstance(statement, ast.AnnAssign)
                     and isinstance(statement.annotation, ast.Subscript)
                     and statement.annotation.value.id == "Annotated"
                 ):

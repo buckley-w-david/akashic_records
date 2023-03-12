@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "akashic_records"
-version = "0.1.1"
+version = "0.2.1"
 description = ""
 authors = ["David Buckley <david@davidbuckley.ca>"]
 readme = "README.md"
