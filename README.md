@@ -111,7 +111,7 @@ The very neat [sorcery](https://github.com/alexmojaki/sorcery) package by [Alex 
 
 The OpenaAI completaions endpoint has many options. Some of these are available for tweaking.
 
-```
+```python
 from akashic_records import config
 
 config.n = 3 # https://platform.openai.com/docs/api-reference/completions/create#completions/create-n
@@ -120,7 +120,7 @@ config.temperature = 0.2 # https://platform.openai.com/docs/api-reference/comple
 ```
 
 Some additional options are available to control the prompt generation process.
-```
+```python
 from akashic_records import config
 
 config.type_hint = True # Set to False to disable all type hints in prompts
